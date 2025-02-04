@@ -2,7 +2,9 @@ import React from 'react'
 
 function Contact() {
   return (
-    <div>Contact</div>
+    <h3 style={{display:"flex", height:"83vh" ,alignItems:"center" , justifyContent:"center" }}>
+        Contact  Page !
+    </h3>
   )
 }
 

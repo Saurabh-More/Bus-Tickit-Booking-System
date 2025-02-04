@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink, useLocation, Routes, Route } from 'react-router-dom'; // Add Routes and Route
-import { AppBar, Toolbar, Button, Typography, Box, Stack } from '@mui/material';
-import { toast } from 'react-hot-toast';
+import { AppBar, Box, Button, Stack, Toolbar, Typography } from '@mui/material';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { NavLink, Route, Routes, useLocation } from 'react-router-dom';
+import About from "../Pages/About";
+import Contact from "../Pages/Contact";
+import MyBookings from "../Pages/myBookings";
 import LoginDialog from './Login';
 import RegisterDialog from './Register';
-import About from "../Pages/About";  // Import About component
-import Contact from "../Pages/Contact";  
-import UserDetails from "../Pages/userDetails"
-import Home from "../Pages/Home";  // Assuming you have a Home component
 
 const Navbar = () => {
   const [user, setUser] = useState(false);
@@ -111,7 +110,7 @@ const Navbar = () => {
       <Routes>
         <Route path="/about" element={<About />} /> {/* About route */}
         <Route path="/contact" element={<Contact />} /> {/* Contact route */}
-        <Route path="/bookings" element={<UserDetails />} /> {/* Contact route */}
+        <Route path="/bookings" element={<MyBookings />} /> {/* Contact route */}
       </Routes>
 
       {/* Login Dialog */}

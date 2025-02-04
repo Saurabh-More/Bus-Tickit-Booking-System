@@ -1,10 +1,13 @@
-import React from 'react'
+import React from 'react';
 
 function NotFound() {
-  return 
-  (
-    <div>404 | Page not found </div>
-  )
+  return (
+    <>
+      <h3 style={{display:"flex", height:"70vh" ,alignItems:"center" , justifyContent:"center" }}>
+        404 | Page Not Found
+      </h3>
+    </>
+  );
 }
 
-export default NotFound
+export default NotFound;

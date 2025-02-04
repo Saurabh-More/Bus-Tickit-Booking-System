@@ -1,11 +1,11 @@
 import React from 'react'
 
-function About() {
+function MyBookings() {
   return (
     <h3 style={{display:"flex", height:"83vh" ,alignItems:"center" , justifyContent:"center" }}>
-      About  Page  !
+        User  Bookings !
     </h3>
   )
 }
 
-export default About
+export default MyBookings

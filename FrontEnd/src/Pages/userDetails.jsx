@@ -1,9 +1,15 @@
-import React from 'react'
+import React from 'react';
+import { useParams } from 'react-router-dom';
 
-function userDetails() {
+function UserDetails() {
+  const { name }=useParams();
   return (
-    <div>userDetails</div>
+  <>
+      <h3 style={{display:"flex", height:"83vh" ,alignItems:"center" , justifyContent:"center" }}>
+        User  Name  is {name} !
+      </h3>
+  </>
   )
 }
 
-export default userDetails
+export default UserDetails;
