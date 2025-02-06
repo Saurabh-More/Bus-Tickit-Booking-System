@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import {Button,Box,TextField,Dialog,DialogActions,DialogContent,DialogTitle} from "@mui/material";
-import { useAuthContext } from "../context/UserContext"
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/reducers/auth";
+
 
 const RegisterDialog = ({ open, handleClose}) => {
   const [username, setUserName] = useState("");
@@ -10,8 +12,7 @@ const RegisterDialog = ({ open, handleClose}) => {
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { setUser } = useAuthContext();
-
+  const dispatch = useDispatch();
   const HandleRegister = async (e) => {
     e.preventDefault();
 
@@ -37,12 +38,7 @@ const RegisterDialog = ({ open, handleClose}) => {
 
       // Success message and close dialog
       toast.success(data.message, { id: toastId });
-
-      // Notify parent component about successful registration
-      // onRegisterSuccess();
-      setUser(true);
-
-      // Close the dialog
+      dispatch(setUser(true));
       handleClose();
     } catch (error) {
       toast.error(
@@ -50,7 +46,6 @@ const RegisterDialog = ({ open, handleClose}) => {
         { id: toastId }
       );
     } finally {
-      // Always reset the state
       setTimeout(() => setIsSubmitting(false), 4000);
     }
   };

@@ -2,20 +2,23 @@ import { AppBar, Box, Button, Stack, Toolbar, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { NavLink, Route, Routes, useLocation } from 'react-router-dom';
+import { NavLink, Route, Routes, useLocation , useNavigate } from 'react-router-dom';
 import About from "../Pages/About";
 import Contact from "../Pages/Contact";
 import MyBookings from "../Pages/myBookings";
 import LoginDialog from './Login';
 import RegisterDialog from './Register';
-import { useAuthContext } from "../context/UserContext";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from '../redux/reducers/auth';
 
 const Navbar = () => {
   const [openLogin, setOpenLogin] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
   const location = useLocation(); // Get current URL
+  const navigate = useNavigate();
   
-  const { user,setUser } = useAuthContext();
+  const user= useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
   
   // Handlers for Login Dialog
   const toggleLogin = () => setOpenLogin(prev => !prev);
@@ -29,8 +32,9 @@ const Navbar = () => {
     const toastId = toast.loading('Logging out...');
     try {
       const { data } = await axios.get('http://localhost:8000/api/v1/user/logout', { withCredentials: true });
-      setUser(false);
+      dispatch(setUser(false));
       toast.success(data.message, { id: toastId });
+      navigate("/");
     } catch (error) {
       toast.error(error?.response?.data?.error || 'Something went wrong', { id: toastId });
     }
@@ -41,10 +45,10 @@ const Navbar = () => {
       try {
         const { data } = await axios.get('http://localhost:8000/api/v1/user/check-auth', { withCredentials: true });
         if (data.isAuthenticated) {
-          setUser(true);
+          dispatch(setUser(true));
         }
       } catch (error) {
-        setUser(false);
+        dispatch(setUser(false));
       }
     };
 

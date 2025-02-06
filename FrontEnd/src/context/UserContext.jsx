@@ -11,10 +11,7 @@ const UserContextProvider = ({children}) =>{
     )
 }
 
-const useAuthContext = () =>
-{
-    return useContext(UserContext);
-}
+const useAuthContext = () => useContext(UserContext);
 
 
 

@@ -3,8 +3,8 @@ import { toast } from 'react-hot-toast';
 import axios from 'axios';
 import {Button,Box,TextField,Dialog,DialogActions,DialogContent,DialogTitle,InputAdornment,IconButton} from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-
-import { useAuthContext } from "../context/UserContext";
+import { useDispatch } from 'react-redux';
+import { setUser } from '../redux/reducers/auth';
 
 const LoginDialog = ({open,handleClose}) => {
   const [username, setUserName] = useState('');
@@ -12,7 +12,7 @@ const LoginDialog = ({open,handleClose}) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const { setUser } = useAuthContext();
+  const dispatch = useDispatch();
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -32,7 +32,8 @@ const LoginDialog = ({open,handleClose}) => {
       return;
     }
 
-    try {
+    try 
+    {
       // Sending login data to the backend
       const { data } = await axios.post('http://localhost:8000/api/v1/user/login', {
         username: username,
@@ -43,8 +44,7 @@ const LoginDialog = ({open,handleClose}) => {
 
       // Success message and dialog close
       toast.success(data.message, { id: toastId });
-      // onLoginSuccess(); // Notify HomePage of successful login
-      setUser(true);
+      dispatch(setUser(true));
       handleClose(); // Close the login dialog
 
     } catch (error) {
