@@ -14,7 +14,7 @@ function App() {
       {/* React Router Setup */}
       <BrowserRouter>
         <Routes>
-          <Route element={<Layout />}>
+          <Route   element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/userDetails/:name" element={<UserDetails />}/>
             <Route path="*" element={<NotFound />} />

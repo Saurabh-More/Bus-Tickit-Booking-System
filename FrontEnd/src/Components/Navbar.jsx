@@ -8,20 +8,20 @@ import Contact from "../Pages/Contact";
 import MyBookings from "../Pages/myBookings";
 import LoginDialog from './Login';
 import RegisterDialog from './Register';
+import { useAuthContext } from "../context/UserContext";
 
 const Navbar = () => {
-  const [user, setUser] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
   const location = useLocation(); // Get current URL
-
+  
+  const { user,setUser } = useAuthContext();
+  
   // Handlers for Login Dialog
-  const handleLoginOpen = () => setOpenLogin(true);
-  const handleLoginClose = () => setOpenLogin(false);
+  const toggleLogin = () => setOpenLogin(prev => !prev);
 
   // Handlers for Register Dialog
-  const handleRegisterOpen = () => setOpenRegister(true);
-  const handleRegisterClose = () => setOpenRegister(false);
+  const toggleRegister = () => setOpenRegister(prev => !prev);
 
   // Handle Logout User
   const handleLogout = async (e) => {
@@ -34,18 +34,6 @@ const Navbar = () => {
     } catch (error) {
       toast.error(error?.response?.data?.error || 'Something went wrong', { id: toastId });
     }
-  };
-
-  // Handle login success
-  const handleLoginSuccess = () => {
-    setUser(true);
-    handleLoginClose();
-  };
-
-  // Handle register success
-  const handleRegisterSuccess = () => {
-    setUser(true);
-    handleRegisterClose();
   };
 
   useEffect(() => {
@@ -95,10 +83,10 @@ const Navbar = () => {
             </Stack>
           ) : (
             <Stack direction="row" spacing={4}>
-              <Button variant="outlined" color="inherit" onClick={handleRegisterOpen}>
+              <Button variant="outlined" color="inherit" onClick={toggleRegister}>
                 Register
               </Button>
-              <Button variant="outlined" color="inherit" onClick={handleLoginOpen}>
+              <Button variant="outlined" color="inherit" onClick={toggleLogin}>
                 Login
               </Button>
             </Stack>
@@ -116,16 +104,13 @@ const Navbar = () => {
       {/* Login Dialog */}
       <LoginDialog
         open={openLogin}
-        handleClose={handleLoginClose}
-        handleSignUp={handleRegisterOpen}
-        onLoginSuccess={handleLoginSuccess}
+        handleClose={toggleLogin}
       />
 
       {/* Register Dialog */}
       <RegisterDialog
         open={openRegister}
-        handleClose={handleRegisterClose}
-        onRegisterSuccess={handleRegisterSuccess}
+        handleClose={toggleRegister}
       />
     </>
   );

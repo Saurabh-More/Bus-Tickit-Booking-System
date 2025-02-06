@@ -1,24 +1,18 @@
 import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
-import {
-  Button,
-  Box,
-  TextField,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  InputAdornment,
-  IconButton
-} from '@mui/material';
+import {Button,Box,TextField,Dialog,DialogActions,DialogContent,DialogTitle,InputAdornment,IconButton} from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
-const LoginDialog = ({open,handleClose, handleSignUp, onLoginSuccess}) => {
+import { useAuthContext } from "../context/UserContext";
+
+const LoginDialog = ({open,handleClose}) => {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  const { setUser } = useAuthContext();
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -49,7 +43,8 @@ const LoginDialog = ({open,handleClose, handleSignUp, onLoginSuccess}) => {
 
       // Success message and dialog close
       toast.success(data.message, { id: toastId });
-      onLoginSuccess(); // Notify HomePage of successful login
+      // onLoginSuccess(); // Notify HomePage of successful login
+      setUser(true);
       handleClose(); // Close the login dialog
 
     } catch (error) {

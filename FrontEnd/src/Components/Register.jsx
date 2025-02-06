@@ -1,21 +1,16 @@
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import {
-  Button,
-  Box,
-  TextField,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from "@mui/material";
+import {Button,Box,TextField,Dialog,DialogActions,DialogContent,DialogTitle} from "@mui/material";
+import { useAuthContext } from "../context/UserContext"
 
-const RegisterDialog = ({ open, handleClose, onRegisterSuccess }) => {
+const RegisterDialog = ({ open, handleClose}) => {
   const [username, setUserName] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const { setUser } = useAuthContext();
 
   const HandleRegister = async (e) => {
     e.preventDefault();
@@ -44,7 +39,8 @@ const RegisterDialog = ({ open, handleClose, onRegisterSuccess }) => {
       toast.success(data.message, { id: toastId });
 
       // Notify parent component about successful registration
-      onRegisterSuccess();
+      // onRegisterSuccess();
+      setUser(true);
 
       // Close the dialog
       handleClose();
