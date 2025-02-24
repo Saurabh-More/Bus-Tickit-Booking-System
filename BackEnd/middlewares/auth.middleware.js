@@ -43,7 +43,7 @@ const isAuthenticated = async (req, res, next) =>
             }
         }
 
-        // Handle refresh token
+        // Access Token is not present or expired but refresh token is there 
         if (refreshToken) 
         {
             try 

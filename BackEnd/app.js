@@ -8,23 +8,19 @@ import errorHandler from "./middlewares/error.Middleware.js";
 
 // Load environment variables from .env file
 dotenv.config({
-    path: '.env', // Explicitly specify the .env file path (optional, default is .env)
+    path: '.env', 
 });
 
 
 // Connect to the database
-
 await ConnectDB();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 
-// Middlewares 
-app.use(express.json());    // To get data in JSON format
-app.use(cookieParser());      // Use to access the user cookies and set it 
-
-const corsOptions = {
+const corsOptions = 
+{
     origin : [
         "http://localhost:5173",
         "http://localhost:4173",
@@ -33,7 +29,10 @@ const corsOptions = {
     credentials: true,              // Allow credentials (cookies)
 }
 
-app.use(cors(corsOptions));
+// Middlewares 
+app.use(express.json());      // To get data in JSON format
+app.use(cookieParser());      // Use to access the user cookies and set it 
+app.use(cors(corsOptions));   // Used to avoide cors error
 
 // Acces the User Routes 
 app.use("/api/v1/user",userRoute);

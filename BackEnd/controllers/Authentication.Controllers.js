@@ -62,7 +62,7 @@ const sendToken = async(res,user,statusCode,message) =>
 };
 
 
-const CheckAuth = async(req,res,next) => {
+const CheckAuth = (req,res,next) => {
     const user=req.user;
     if(!user)
     {
@@ -73,22 +73,20 @@ const CheckAuth = async(req,res,next) => {
 
 // Register Function
 const Register = async(req,res,next) => 
-    {
-        try {
-            // Get data Input 
-            const { name, username, password } = req.body;
+{
+    try {
+        // Get data Input 
+        const { name, username, password } = req.body;
             
-            // Check All data Is Entered or not
-            if(!name || !username || !password)
-                {
-                    return next({message:"All Fields Are Required",statusCode:400});
-                }
-                
-                
-                // Check if the user already exists
-                const isUser = await User.findOne({ username });
-                if(isUser)
-                    {
+        // Check All data Is Entered or not
+        if(!name || !username || !password)
+        {
+            return next({message:"All Fields Are Required",statusCode:400});
+        } 
+        // Check if the user already exists
+        const isUser = await User.findOne({ username:username });
+        if(isUser)
+        {
             return next({ message: "This username is already taken.", statusCode: 400});
         }
     

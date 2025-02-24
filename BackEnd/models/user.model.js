@@ -42,7 +42,7 @@ userSchema.pre("save", async function (next)
     } 
     catch (error) 
     {
-        next(error);  // If an error occurs, pass it to the next middleware (or error handler)
+        next(error);  // If an error occurs, pass it to the next error middleware
     }
 });
 
