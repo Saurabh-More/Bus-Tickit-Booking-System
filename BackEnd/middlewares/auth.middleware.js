@@ -51,7 +51,7 @@ const isAuthenticated = async (req, res, next) =>
                 const decodedRefreshToken = jwt.verify(refreshToken,process.env.REFRESH_TOKEN_SECRET_KEY);
 
                 // Find user and validate refresh token
-                const user = await User.findById(decodedRefreshToken._id);
+                const user = await User.findById(decodedRefreshToken._id).select("+refreshToken");
 
                 // user not found or refresh token not matches 
                 if (!user || user.refreshToken !== refreshToken) 
