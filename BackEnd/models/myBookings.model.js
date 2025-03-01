@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 // Store Booking of each user
 const myBookings = new mongoose.Schema(
 {   
+    user:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User",
+        required:true,
+    },
     name:{
         type:String,
         required:true,
@@ -31,12 +36,14 @@ const myBookings = new mongoose.Schema(
     },
     seatNo:
     {
-        type:string,
+        type:String,
     },
-    transactions :{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Transaction",
-    }
+    transactions: [
+        { 
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: "Transaction",
+        }
+    ],    
 },{ timestamps:true });
 
 const MyBooking = mongoose.models.MyBooking || mongoose.model("MyBooking",myBookings);

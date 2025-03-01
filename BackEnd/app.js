@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import cors from "cors";
 import { ConnectDB } from './database/connection.js';
 import userRoute from "./routes/user.js";
+import adminRoute from "./routes/admin.js";
 import errorHandler from "./middlewares/error.Middleware.js";
 
 // Load environment variables from .env file
@@ -36,7 +37,7 @@ app.use(cors(corsOptions));   // Used to avoide cors error
 
 // Acces the User Routes 
 app.use("/api/v1/user",userRoute);
-
+app.use("/api/v1/admin",adminRoute);
 
 // Basic GET route
 app.get("/", (req, res) => {

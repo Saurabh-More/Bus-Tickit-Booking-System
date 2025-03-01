@@ -23,10 +23,7 @@ const busSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
-    seatsAvailable: { 
-        type: Number, 
-        required: true, 
-    },
+    totalSeats: { type: Number, required: true },
     duration: {
       type: Number,
       min: 0,
